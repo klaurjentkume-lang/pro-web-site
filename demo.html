@@ -1,0 +1,225 @@
+<!-- =============================== -->
+<!-- LANDING PAGE: HTML + CSS + JS (Dark Mode, Video BG, Scroll Reveal, Responsive) -->
+<!-- Created for user; do not repeat code in-chat (canvas shows it). -->
+<!-- =============================== -->
+
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PRO WEB — Website Profesional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f2f4f8; --card:#ffffff; --text:#0f1724; --muted:#545e6f; --accent:#4a3aff; --glass: rgba(255,255,255,0.6);
+    }
+    [data-theme='dark']{ --bg:#0b1020; --card:#0f1724; --text:#e6eef8; --muted:#aeb8c9; --accent:#7b6bff; --glass: rgba(255,255,255,0.04); }
+
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+    html,body{height:100%}
+    body{background:var(--bg);color:var(--text);line-height:1.5}
+
+    /* ====== NAVBAR ====== */
+    header{position:fixed;left:0;right:0;top:0;height:68px;background:linear-gradient(180deg,var(--glass),transparent);backdrop-filter: blur(6px);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:999;border-bottom:1px solid rgba(0,0,0,0.04)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#6a8bff);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    .brand h1{font-size:18px}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:var(--text);text-decoration:none;font-weight:600}
+    .controls{display:flex;gap:10px;align-items:center}
+    .btn{border:none;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600}
+    .btn-cta{background:var(--accent);color:white}
+    .hamburger{display:none;background:transparent;border:none;font-size:20px}
+
+    /* ====== HERO (Video background) ====== */
+    .hero{height:calc(100vh - 68px);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .hero .media{position:absolute;inset:0;z-index:0;display:block}
+    .hero .media video, .hero .media img{width:100%;height:100%;object-fit:cover;display:block}
+    .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,9,20,0.4),rgba(7,9,20,0.55));z-index:1}
+    .hero .content{position:relative;z-index:2;text-align:center;padding:40px;max-width:980px;color:white}
+    .hero h2{font-size:46px;line-height:1.02;margin-bottom:14px;text-shadow:0 8px 30px rgba(0,0,0,0.5)}
+    .hero p{font-size:18px;opacity:0.95;margin-bottom:20px}
+    .hero .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* ====== SECTIONS ====== */
+    main{padding-top:88px}
+    section{padding:80px 6%}
+    .container{max-width:1200px;margin:0 auto}
+
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:28px}
+    .card{background:var(--card);padding:22px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.06);border:1px solid rgba(0,0,0,0.04);transform:translateY(0);transition:transform .35s,box-shadow .35s}
+    .card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(2,6,23,0.09)}
+
+    /* Portfolio images */
+    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .projects img{width:100%;height:200px;object-fit:cover;border-radius:10px}
+
+    /* Pricing */
+    .price{font-size:34px;font-weight:700;color:var(--accent)}
+
+    /* Contact form */
+    form{display:grid;gap:12px}
+    input,textarea{padding:14px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:transparent;color:var(--text)}
+
+    /* Footer */
+    footer{padding:30px;text-align:center;background:transparent;border-top:1px solid rgba(0,0,0,0.04);margin-top:30px}
+
+    /* Reveal animation */
+    .reveal{opacity:0;transform:translateY(18px);transition:all .7s ease-out}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* Back to top */
+    #backTop{position:fixed;right:20px;bottom:20px;width:48px;height:48px;border-radius:12px;border:none;background:var(--accent);color:white;display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 12px 30px rgba(74,58,255,0.25);z-index:999}
+
+    /* Responsive */
+    @media(max-width:900px){nav{display:none}.hamburger{display:block}}
+    @media(max-width:600px){.hero h2{font-size:30px}.hero p{font-size:15px}}
+  </style>
+</head>
+<body data-theme="light">
+
+  <header>
+    <div class="brand">
+      <div class="logo">PW</div>
+      <h1 style="font-size:16px">PRO WEB</h1>
+    </div>
+
+    <nav>
+      <a href="#about">Rreth</a>
+      <a href="#services">Shërbime</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#pricing">Çmime</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
+
+    <div class="controls">
+      <button id="themeToggle" class="btn" aria-label="Toggle theme">🌙</button>
+      <button class="btn btn-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Na Kontakto</button>
+      <button class="hamburger" id="menuBtn">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO with video background (autoplay muted loop) -->
+    <section class="hero">
+      <div class="media" aria-hidden="true">
+        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1522199710521-72d69614c702" id="bgVideo">
+          <source src="https://cdn.coverr.co/videos/coverr-laptop-working-1595004228?token=eyJhbGciOiJIUzI1NiJ9" type="video/mp4">
+        </video>
+      </div>
+      <div class="overlay"></div>
+
+      <div class="content container">
+        <h2 class="reveal">Web që bie në sy — <span style="color:var(--accent)">modern, i shpejtë, premium</span></h2>
+        <p class="reveal">Krijojmë faqe me dizajn të rafinuar, animacione elegante dhe performancë të lartë. Testo rezultatet në 30 ditë.</p>
+        <div class="actions reveal">
+          <button class="btn btn-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Fillo tani</button>
+          <button class="btn" onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})">Shiko Portofolin</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="container reveal">
+      <h2>Rreth Nesh</h2>
+      <p style="margin-top:12px;max-width:900px">Ne jemi një ekip profesional që ndërton faqe të optimizuara për shitje dhe pamje. Bashkëpunimi ynë përfshin dizajn, zhvillim, SEO dhe mbështetje pas-lançimit.</p>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="container reveal">
+      <h2>Shërbimet</h2>
+      <div class="cards">
+        <div class="card">Dizajn UI/UX të personalizuar</div>
+        <div class="card">Zhvillim React / Next.js</div>
+        <div class="card">Integrime API & E-commerce</div>
+        <div class="card">SEO & Marketing</div>
+        <div class="card">Hosting & Maintenance</div>
+        <div class="card">Trajnime & Manual përdorimi</div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="container reveal">
+      <h2>Portfolio</h2>
+      <div class="projects">
+        <img src="https://images.unsplash.com/photo-1551033406-611cf9a28f67" alt="Projekti 1">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f" alt="Projekti 2">
+        <img src="https://images.unsplash.com/photo-1503264116251-35a269479413" alt="Projekti 3">
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="container reveal">
+      <h2>Paketat e Çmimeve</h2>
+      <div class="cards">
+        <div class="card"><h3>Basic</h3><div class="price">49€</div><p>Landing + Responsive</p></div>
+        <div class="card"><h3>Pro</h3><div class="price">99€</div><p>5 Faqe + Animacione</p></div>
+        <div class="card"><h3>Premium</h3><div class="price">149€</div><p>Full + Hosting + SEO</p></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container reveal">
+      <h2>Na Kontaktoni</h2>
+      <form id="contactForm">
+        <input id="name" type="text" placeholder="Emri" required>
+        <input id="email" type="email" placeholder="Email" required>
+        <textarea id="message" rows="5" placeholder="Mesazhi" required></textarea>
+        <button type="submit">Dërgo Mesazhin</button>
+      </form>
+      <p id="formStatus" style="margin-top:12px;color:var(--muted)"></p>
+    </section>
+  </main>
+
+  <button id="backTop" title="Back to top">↑</button>
+
+  <footer>
+    © 2025 PRO WEB — Të gjitha të drejtat e rezervuara
+  </footer>
+
+  <script>
+    // Theme toggle (dark / light) — remembers choice in localStorage
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    function setTheme(theme){ document.body.setAttribute('data-theme', theme); localStorage.setItem('pw_theme', theme); themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙'; }
+    const saved = localStorage.getItem('pw_theme') || 'light'; setTheme(saved);
+    themeToggle.addEventListener('click',()=> setTheme(document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+    // Mobile menu (simple)
+    const menuBtn = document.getElementById('menuBtn');
+    menuBtn.addEventListener('click', ()=>{
+      const nav = document.querySelector('header nav');
+      if(nav.style.display === 'flex') { nav.style.display = 'none'; } else { nav.style.display = 'flex'; nav.style.flexDirection = 'column'; nav.style.background = 'var(--card)'; nav.style.position='absolute'; nav.style.right='20px'; nav.style.top='68px'; nav.style.padding='12px'; nav.style.borderRadius='10px'; }
+    });
+
+    // Scroll reveal using IntersectionObserver
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('visible');
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // Back to top button
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', ()=>{
+      if(window.scrollY > 400) backTop.style.display = 'flex'; else backTop.style.display = 'none';
+    });
+    backTop.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+
+    // Simple contact form handler (no backend) — fake send
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      status.textContent = 'Duke dërguar...';
+      setTimeout(()=>{ status.textContent = 'Mesazhi u dërgua me sukses! Ne do t' + "'" + 'ju kontaktojmë brenda 24 orësh.'; form.reset(); },1200);
+    });
+
+    // If video fails, hide video element
+    const video = document.getElementById('bgVideo');
+    video.addEventListener('error', ()=>{ video.style.display='none'; document.querySelector('.hero .overlay').style.background='linear-gradient(180deg,rgba(7,9,20,0.6),rgba(7,9,20,0.8))' });
+  </script>
+</body>
+</html>
